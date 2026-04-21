@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Cron-safe wrapper: regenerate today's snapshot for this host, then commit/push.
-# Only touches reports/<hostname>/ so multiple machines don't clobber each other.
+# Cron-safe wrapper: regenerate today's snapshot for this machine, then commit/push.
+# Only touches reports/<machine-slug>/ so multiple machines don't clobber each other.
 set -euo pipefail
 
 # --- make node/ccusage visible under cron / Task Scheduler's minimal PATH ---
@@ -24,7 +24,14 @@ esac
 export PATH="/usr/local/bin:/usr/bin:/bin:$PATH"
 
 repo_root="$(cd "$(dirname "$0")/.." && pwd)"
-host="$(hostname)"
+
+# Per-machine privacy overrides: CCUSAGE_MACHINE (folder slug) and
+# CCUSAGE_MACHINE_DISPLAY (pretty commit-message name). Set these in
+# $HOME/.ccusage-env (not committed) if the raw hostname is sensitive.
+[ -f "$HOME/.ccusage-env" ] && . "$HOME/.ccusage-env"
+slug="${CCUSAGE_MACHINE:-$(hostname)}"
+display="${CCUSAGE_MACHINE_DISPLAY:-$slug}"
+
 cd "$repo_root"
 
 # pull latest so other machines' pushes don't block ours
@@ -33,26 +40,26 @@ git pull --rebase --autostash origin main >/dev/null
 bash "$repo_root/scripts/snapshot.sh"
 
 # stage only this host's folder
-git add "reports/$host"
+git add "reports/$slug"
 
 if git diff --cached --quiet; then
-    echo "[$(date -Is)] $host: no changes"
+    echo "[$(date -Is)] $slug: no changes"
     exit 0
 fi
 
 git -c user.name="ccusage-bot" -c user.email="ccusage-bot@users.noreply.github.com" \
-    commit -m "[$host] snapshot $(date +%Y-%m-%d)"
+    commit -m "[$display] snapshot $(date +%Y-%m-%d)"
 
 # retry push a few times in case another machine is pushing simultaneously
 for i in 1 2 3; do
     if git push origin main; then
-        echo "[$(date -Is)] $host: pushed"
+        echo "[$(date -Is)] $slug: pushed"
         exit 0
     fi
-    echo "[$(date -Is)] $host: push attempt $i failed, rebasing and retrying"
+    echo "[$(date -Is)] $slug: push attempt $i failed, rebasing and retrying"
     git pull --rebase --autostash origin main >/dev/null || true
     sleep $((i * 5))
 done
 
-echo "[$(date -Is)] $host: push failed after 3 attempts" >&2
+echo "[$(date -Is)] $slug: push failed after 3 attempts" >&2
 exit 1
