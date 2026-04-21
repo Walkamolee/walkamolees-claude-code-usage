@@ -11,10 +11,13 @@ export NVM_DIR="$HOME/.nvm"
 if [ -d "$NVM_DIR/versions/node" ]; then
     export PATH="$NVM_DIR/versions/node/$(ls -1 "$NVM_DIR/versions/node" 2>/dev/null | sort -V | tail -n1)/bin:$PATH"
 fi
-# Windows (Git Bash / MSYS under Task Scheduler): npm globals + system Node
+# Windows (Git Bash / MSYS under Task Scheduler): npm globals + system Node.
+# $APPDATA arrives as Windows-style "C:\..."; Git Bash's Node shim needs MSYS-style.
 case "${OSTYPE:-}" in
     msys*|cygwin*|win32*)
-        [ -n "${APPDATA:-}" ] && export PATH="$APPDATA/npm:$PATH"
+        if [ -n "${APPDATA:-}" ] && command -v cygpath >/dev/null 2>&1; then
+            export PATH="$(cygpath -u "$APPDATA")/npm:$PATH"
+        fi
         [ -d "/c/Program Files/nodejs" ] && export PATH="/c/Program Files/nodejs:$PATH"
         ;;
 esac
