@@ -131,12 +131,12 @@
     },
     {
       "month": "2026-04",
-      "inputTokens": 245842,
-      "outputTokens": 2799963,
-      "cacheCreationTokens": 32856063,
-      "cacheReadTokens": 902416733,
-      "totalTokens": 938318601,
-      "totalCost": 710.9858476500002,
+      "inputTokens": 245852,
+      "outputTokens": 2804216,
+      "cacheCreationTokens": 32863633,
+      "cacheReadTokens": 902856568,
+      "totalTokens": 938770269,
+      "totalCost": 711.3594526500002,
       "modelsUsed": [
         "claude-opus-4-6",
         "claude-haiku-4-5-20251001",
@@ -153,11 +153,11 @@
         },
         {
           "modelName": "claude-opus-4-7",
-          "inputTokens": 3300,
-          "outputTokens": 341048,
-          "cacheCreationTokens": 2116951,
-          "cacheReadTokens": 155760189,
-          "cost": 99.65373824999995
+          "inputTokens": 3310,
+          "outputTokens": 345301,
+          "cacheCreationTokens": 2124521,
+          "cacheReadTokens": 156200024,
+          "cost": 100.02734324999994
         },
         {
           "modelName": "claude-haiku-4-5-20251001",
@@ -171,11 +171,11 @@
     }
   ],
   "totals": {
-    "inputTokens": 1511636,
-    "outputTokens": 3901774,
-    "cacheCreationTokens": 66849547,
-    "cacheReadTokens": 1601589847,
-    "totalCost": 1032.3669235500004,
-    "totalTokens": 1673852804
+    "inputTokens": 1511646,
+    "outputTokens": 3906027,
+    "cacheCreationTokens": 66857117,
+    "cacheReadTokens": 1602029682,
+    "totalCost": 1032.7405285500004,
+    "totalTokens": 1674304472
   }
 }
