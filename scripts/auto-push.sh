@@ -3,11 +3,22 @@
 # Only touches reports/<hostname>/ so multiple machines don't clobber each other.
 set -euo pipefail
 
-# --- make node/ccusage visible under cron's minimal PATH ---
+# --- make node/ccusage visible under cron / Task Scheduler's minimal PATH ---
+# Linux/macOS nvm (if installed)
 export NVM_DIR="$HOME/.nvm"
 # shellcheck disable=SC1091
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" >/dev/null 2>&1 || true
-export PATH="$NVM_DIR/versions/node/$(ls -1 "$NVM_DIR/versions/node" 2>/dev/null | sort -V | tail -n1)/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
+if [ -d "$NVM_DIR/versions/node" ]; then
+    export PATH="$NVM_DIR/versions/node/$(ls -1 "$NVM_DIR/versions/node" 2>/dev/null | sort -V | tail -n1)/bin:$PATH"
+fi
+# Windows (Git Bash / MSYS under Task Scheduler): npm globals + system Node
+case "${OSTYPE:-}" in
+    msys*|cygwin*|win32*)
+        [ -n "${APPDATA:-}" ] && export PATH="$APPDATA/npm:$PATH"
+        [ -d "/c/Program Files/nodejs" ] && export PATH="/c/Program Files/nodejs:$PATH"
+        ;;
+esac
+export PATH="/usr/local/bin:/usr/bin:/bin:$PATH"
 
 repo_root="$(cd "$(dirname "$0")/.." && pwd)"
 host="$(hostname)"
