@@ -153,12 +153,12 @@
     },
     {
       "month": "2026-05",
-      "inputTokens": 312969,
-      "outputTokens": 4420690,
-      "cacheCreationTokens": 27647466,
-      "cacheReadTokens": 1150656768,
-      "totalTokens": 1183037893,
-      "totalCost": 629.2507368999984,
+      "inputTokens": 318748,
+      "outputTokens": 4522408,
+      "cacheCreationTokens": 28199223,
+      "cacheReadTokens": 1170625495,
+      "totalTokens": 1203665874,
+      "totalCost": 638.0744588499985,
       "modelsUsed": [
         "claude-opus-4-7",
         "claude-haiku-4-5-20251001",
@@ -167,11 +167,11 @@
       "modelBreakdowns": [
         {
           "modelName": "claude-sonnet-4-6",
-          "inputTokens": 123585,
-          "outputTokens": 3260827,
-          "cacheCreationTokens": 16034474,
-          "cacheReadTokens": 716071322,
-          "cost": 324.23383409999906
+          "inputTokens": 125246,
+          "outputTokens": 3360229,
+          "cacheCreationTokens": 16420852,
+          "cacheReadTokens": 734368807,
+          "cost": 332.66801009999904
         },
         {
           "modelName": "claude-opus-4-7",
@@ -183,21 +183,21 @@
         },
         {
           "modelName": "claude-haiku-4-5-20251001",
-          "inputTokens": 25827,
-          "outputTokens": 72902,
-          "cacheCreationTokens": 1661920,
-          "cacheReadTokens": 12323918,
-          "cost": 3.700128799999999
+          "inputTokens": 29945,
+          "outputTokens": 75218,
+          "cacheCreationTokens": 1827299,
+          "cacheReadTokens": 13995160,
+          "cost": 4.0896747499999995
         }
       ]
     }
   ],
   "totals": {
-    "inputTokens": 1603706,
-    "outputTokens": 7156038,
-    "cacheCreationTokens": 73950491,
-    "cacheReadTokens": 2479598162,
-    "totalCost": 1518.4223560499988,
-    "totalTokens": 2562308397
+    "inputTokens": 1609485,
+    "outputTokens": 7257756,
+    "cacheCreationTokens": 74502248,
+    "cacheReadTokens": 2499566889,
+    "totalCost": 1527.2460779999988,
+    "totalTokens": 2582936378
   }
 }
