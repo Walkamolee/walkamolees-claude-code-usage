@@ -10,6 +10,9 @@ Reports are organized **per machine** so the 4 computers I use Claude Code on do
 - `reports/<hostname>/YYYY-MM-DD-monthly.json` — same totals rolled up by month, from `ccusage monthly --json`.
 - `scripts/snapshot.sh` — drops a fresh dated snapshot into `reports/<hostname>/`.
 - `scripts/auto-push.sh` — cron-safe wrapper that runs the snapshot, commits, and pushes (with pull-rebase + retry so parallel machines don't collide).
+- `scripts/aggregate.py` — reads the latest monthly snapshot from each `reports/<host>/` folder and prints a cross-machine markdown summary (grand total, per-machine, per-model).
+- `scripts/install-skill.sh` — copies `skills/claude-code-usage-check/` into `~/.claude/skills/` so Claude Code picks it up on this machine.
+- `skills/claude-code-usage-check/` — a Claude Code skill. When you ask Claude "what is my usage?" / "how much have I spent on claude?", it runs `auto-push.sh` (fresh snapshot from this machine) then `aggregate.py` (cross-machine totals) and reports back.
 
 Each snapshot reflects all Claude Code sessions logged under `~/.claude/projects/` on that machine at the moment it ran.
 
@@ -32,6 +35,16 @@ By design, these reports do not include prompts, responses, project folder names
 ```
 
 Install ccusage globally with `npm i -g ccusage`.
+
+## Using the Claude Code skill
+
+On any machine where you've cloned this repo:
+
+```bash
+./scripts/install-skill.sh
+```
+
+That copies the skill into `~/.claude/skills/claude-code-usage-check/`. Then in any Claude Code session, ask "what is my usage" (or "check my usage", "how much have I spent on claude", etc.) and Claude will snapshot this machine, push it, pull every other machine's latest, and print the cross-machine breakdown.
 
 ## Daily cron (per machine)
 
