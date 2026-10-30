@@ -1,0 +1,34 @@
+{
+  "daily": [
+    {
+      "date": "2026-10-29",
+      "inputTokens": 2,
+      "outputTokens": 9,
+      "cacheCreationTokens": 22549,
+      "cacheReadTokens": 11607,
+      "totalTokens": 34167,
+      "totalCost": 0.1152544,
+      "modelsUsed": [
+        "claude-opus-5-5"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-5-5",
+          "inputTokens": 2,
+          "outputTokens": 9,
+          "cacheCreationTokens": 22549,
+          "cacheReadTokens": 11607,
+          "cost": 0.1152544
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "inputTokens": 2,
+    "outputTokens": 9,
+    "cacheCreationTokens": 22549,
+    "cacheReadTokens": 11607,
+    "totalCost": 0.1152544,
+    "totalTokens": 34167
+  }
+}
